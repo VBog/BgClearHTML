@@ -4,13 +4,13 @@ PHP класс **BgClearHTML** удаляет из текста HTML-теги п
 
 Основная функция класса:
 
-`public function prepare ( *(string)* $content, *(array)* $allow_attributes )`
+`public function prepare ( (string) $content, (array) $allow_attributes )`
 	
 Параметры:
 	
 `$content` - строка, содержащая HTML-разметку;
 	
-`$allow_attributes ( $tag => $attributes )` - массив разрешенных тегов HTML и их атрибутов,
+`$allow_attributes [ $tag => $attributes ]` - массив разрешенных тегов HTML и их атрибутов,
 	
 где `$tag` - ключ массива - разрешенные теги, 
 	
@@ -43,15 +43,15 @@ PHP класс **BgClearHTML** удаляет из текста HTML-теги п
 
 * Формирование массива разрешенных тегов и атрибутов из строки	
 	
-`public function strtoarray ( *(string)* $str )`
+`public function strtoarray ( (string) $str )`
 	
 `$str` - строка, содержащая список разрешенных HTML-тегов, перечисленных через запятую. 
 Рядом с тегом в квадратных скобках может быть указан перечень разрешенных атрибутов, разделенных вертикальной чертой `|`, в качестве разделителя. 
 
 * Добавление символов конца строки к закрывающим тегам блоков и строк, в также к тегу `br`
 
-`public function addEOL ( *(string)* $content )`
+`public function addEOL ( (string) $content )`
 
 * Преобразование всех пробельных символов в обыкновенные пробелы и удаление лишних пробелов
 
-`public function replaceSpaces ( *(string)*$content )`
+`public function replaceSpaces ( (string) $content )`
