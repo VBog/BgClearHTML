@@ -5,11 +5,9 @@ class BgClearHTML {
 	public function prepare ($content, $allow_attributes) {
 		// Удаляем JS-скрипты
 		$content = preg_replace("/<script.*?script>/s", "", $content);
-		// Заменяем пробелы и символы конца строки
-		$content = $this->replaceSpaces($content);
 		// Заменяем <br/> и <hr/> на <br /> и <hr />
-			$content = str_replace("<br/>", "<br />", $content);
-			$content = str_replace("<hr/>", "<hr />", $content);
+		$content = str_replace("<br/>", "<br />", $content);
+		$content = str_replace("<hr/>", "<hr />", $content);
 
 		// Списки
 		if (!array_key_exists ( "ol" , $allow_attributes )) {
@@ -29,7 +27,7 @@ class BgClearHTML {
 		}
 
 		// Блоки и заголовки
-		$headers = array ("div", "h1", "h2", "h3", "h4", "h5", "h6");
+		$headers = array ("div", "h1", "h2", "h3", "h4", "h5", "h6", "pre");
 		foreach ($headers as $tag) {
 			if (!array_key_exists ( $tag , $allow_attributes )) {
 				// Заменяем блоки на абзацы 	
@@ -107,7 +105,7 @@ class BgClearHTML {
 	// Добавляет символы конца строки к закрывающим тегам блоков и строк, в также к тегу br
 	public function addEOL ($content) {
 		// Делаем текст кода читабельным 
-		$lines = array ("html", "head", "body", "div", "h1", "h2", "h3", "h4", "h5", "h6", "p", "ol", "ul");
+		$lines = array ("html", "head", "body", "div", "h1", "h2", "h3", "h4", "h5", "h6", "pre", "p", "ol", "ul");
 		foreach ($lines as $tag) {
 			$content = preg_replace('#</'.$tag.'>\s*#is', '</'.$tag.'>'.PHP_EOL, $content);
 		}
@@ -120,9 +118,6 @@ class BgClearHTML {
 	
 	public function replaceSpaces ($content) {
 		
-		// Заменяем символы конца строки на пробел	
-		$content = preg_replace("#\r\n\&nbsp;#s", " ", $content);
-		$content = preg_replace("#\r\n#s", " ", $content);
 		// Заменяем &nbsp; на пробел 	
 		$content = str_replace('&nbsp;', ' ', $content);
 		// Удаляем двойные пробелы	
@@ -130,7 +125,6 @@ class BgClearHTML {
 		$content = str_replace('  ', ' ', $content);
 		// Удаляем пробелы из начала и конца строки
 		$content = trim($content);
-		
 		
 		return $content;
 	}
