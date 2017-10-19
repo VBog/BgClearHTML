@@ -46,7 +46,13 @@ class BgClearHTML {
 			if (!array_key_exists ( "th" , $allow_attributes )) $allow_attributes['th'] = "";
 			if (!array_key_exists ( "td" , $allow_attributes )) $allow_attributes['td'] = "";
 		}
-
+		
+		// Удаляем теги внутри всех заголовков, кроме ссылок
+		$content = preg_replace_callback ('/<(h[1-6])(.*?)>(.*?)<\/\1>/is',
+			function ($match) {
+				return '<'.$match[1].$match[2].'>'.strip_tags($match[3], '<a>').'</'.$match[1].'>';
+			} ,$content);
+		
 		// Удаляем все теги кроме разрешенных
 		$allow_tags = "";
 		foreach ($allow_attributes as $tag => $attr) {
